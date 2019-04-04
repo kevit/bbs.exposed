@@ -9,7 +9,7 @@ get-dht: ## Extract ipv6 from DHT
 	yggdrasilctl getDHT | ./filters/extract_ipv6.sh
 
 get-dht-peers: ## Extract ipv6 from DHT peers
-	yggdrasilctl -json -v getDHT|jq '.dht|.[]|[.box_pub_key,.coords]|@csv' |  awk -F "\"*,\"*" '{print "yggdrasilctl getPeers box_pub_key="$1" coords="$2}' |./filters/extract_ipv6.sh
+	./scripts/collect_peers.sh | ./filters/extract_ipv6.sh
 
 requirements: ## Install ansible requirements
 	ansible-galaxy install -r requirements.yml -p roles --ignore-errors --force
